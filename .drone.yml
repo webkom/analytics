@@ -1,0 +1,8 @@
+pipeline:
+  docker:
+    image: plugins/docker
+    when:
+      branch: master
+      event: push
+    repo: abakus/analytics
+    tag: latest

@@ -1,4 +1,4 @@
-# Analytics
+# Analytics [![Build Status](https://ci.abakus.no/api/badges/webkom/analytics/status.svg)](https://ci.abakus.no/webkom/analytics)
 
 > Simple metric collector
 
