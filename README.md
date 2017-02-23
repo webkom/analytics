@@ -2,10 +2,13 @@
 
 > Simple metric collector
 
-This service exposes a simple event ingestion endpoint. We use this to track events
+This service exposes a simple event bulk ingestion endpoint. We use this to track events
 and trends. The metrics gets stored in postgres, services like Redash is used to query the
-data.
+data. We support the following libraries for event ingestion:
 
+* analytics-python
+
+We don't perform any authentication checks, this service should only run on the local network.
 
 ## Configuration
 
