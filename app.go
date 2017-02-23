@@ -38,11 +38,6 @@ func (a *App) initializeRoutes() {
 }
 
 func (a *App) Migrate() {
-	const debug = "DROP TABLE IF EXISTS events"
-	if _, err := a.DB.Exec(debug); err != nil {
-		log.Fatal(err)
-	}
-
 	const tableCreationQuery = `
 	CREATE TABLE IF NOT EXISTS events
 	(

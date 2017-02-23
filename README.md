@@ -7,6 +7,30 @@ and trends. The metrics gets stored in postgres, services like Redash is used to
 data.
 
 
+## Configuration
+
+We use environment variables to configure the service.
+
+* SENTRY_DSN - Send errors to Sentry
+* LISTEN_ADDRESS="127.0.0.1:8000" - Address and port to listen on
+* POSTGRES_URL="postgres://analytics:analytics@localhost/analytics?sslmode=disable" - Postgres connection details
+
+You need to set the LISTEN_ADDRESS and POSTGRES_URL variables to start the service.
+
+
+## CLI
+
+Start the apiserver
+```
+./app
+```
+
+Create the database table
+```
+./app -migrate
+```
+
+
 ## Getting started
 
 You need to install go and configure the GOPATH before you can build and run this project.
