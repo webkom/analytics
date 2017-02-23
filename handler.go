@@ -3,12 +3,15 @@ package main
 import (
 	"database/sql"
 	"encoding/json"
+	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/common/log"
 	"net/http"
+	"time"
 )
 
 type BatchHandler struct {
-	DB *sql.DB
+	DB                 *sql.DB
+	batchSaveHistogram prometheus.Histogram
 }
 
 func (h *BatchHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +37,12 @@ func (h *BatchHandler) create(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 
-	if err := batchEvents.createBatchEvents(h.DB); err != nil {
+	start := time.Now()
+	err := batchEvents.createBatchEvents(h.DB)
+	elapsed := float64(time.Since(start).Nanoseconds())
+	h.batchSaveHistogram.Observe(elapsed)
+
+	if err != nil {
 		respondWithError(w, http.StatusInternalServerError, err.Error())
 		return
 	}

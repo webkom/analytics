@@ -5,14 +5,16 @@ import (
 	"encoding/json"
 	"github.com/gorilla/mux"
 	_ "github.com/lib/pq"
+	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"log"
 	"net/http"
 )
 
 type App struct {
-	Router *mux.Router
-	DB     *sql.DB
+	Router             *mux.Router
+	DB                 *sql.DB
+	batchSaveHistogram prometheus.Histogram
 }
 
 func (a *App) Initialize(postgresUrl string) {
@@ -23,18 +25,30 @@ func (a *App) Initialize(postgresUrl string) {
 	}
 
 	a.Router = mux.NewRouter()
-	a.initializeRoutes()
+	a.InitializePrometheus()
+	a.InitializeRoutes()
 }
 
 func (a *App) Run(addr string) {
 	log.Fatal(http.ListenAndServe(addr, a.Router))
 }
 
-func (a *App) initializeRoutes() {
-	batchHandler := &BatchHandler{a.DB}
+func (a *App) InitializeRoutes() {
+	batchHandler := &BatchHandler{a.DB, a.batchSaveHistogram}
 	a.Router.HandleFunc("/v1/batch", batchHandler.ServeHTTP)
 
 	a.Router.Handle("/metrics", promhttp.Handler())
+}
+
+func (a *App) InitializePrometheus() {
+	var (
+		batchSaveHistogram = prometheus.NewHistogram(prometheus.HistogramOpts{
+			Name: "batch_save_nanoseconds_histogram",
+			Help: "Track the patch save operation",
+		})
+	)
+	prometheus.MustRegister(batchSaveHistogram)
+	a.batchSaveHistogram = batchSaveHistogram
 }
 
 func (a *App) Migrate() {
