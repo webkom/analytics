@@ -26,12 +26,19 @@
 			"Rev": "69b215d01a5606c843240eab4937eab3acee6530"
 		},
 		{
-			"ImportPath": "github.com/google/jsonapi",
-			"Rev": "bce762968295cf96afcbbf082a2e15ca7e664c91"
+			"ImportPath": "github.com/gorilla/mux",
+			"Comment": "v1.3.0-1-g94e7d24",
+			"Rev": "94e7d24fd285520f3d12ae998f7fdd6b5393d453"
 		},
 		{
-			"ImportPath": "github.com/jinzhu/inflection",
-			"Rev": "1c35d901db3da928c72a72d8458480cc9ade058f"
+			"ImportPath": "github.com/lib/pq",
+			"Comment": "go1.0-cutoff-151-gba5d4f7",
+			"Rev": "ba5d4f7a35561e22fbdf7a39aa0070f4d460cfc0"
+		},
+		{
+			"ImportPath": "github.com/lib/pq/oid",
+			"Comment": "go1.0-cutoff-151-gba5d4f7",
+			"Rev": "ba5d4f7a35561e22fbdf7a39aa0070f4d460cfc0"
 		},
 		{
 			"ImportPath": "github.com/matttproud/golang_protobuf_extensions/pbutil",
@@ -62,6 +69,10 @@
 			"Rev": "49fee292b27bfff7f354ee0f64e1bc4850462edf"
 		},
 		{
+			"ImportPath": "github.com/prometheus/common/log",
+			"Rev": "49fee292b27bfff7f354ee0f64e1bc4850462edf"
+		},
+		{
 			"ImportPath": "github.com/prometheus/common/model",
 			"Rev": "49fee292b27bfff7f354ee0f64e1bc4850462edf"
 		},
@@ -78,34 +89,16 @@
 			"Rev": "d75a52659825e75fff6158388dddc6a5b04f9ba5"
 		},
 		{
-			"ImportPath": "gopkg.in/pg.v5",
-			"Comment": "v5.3.2",
-			"Rev": "f75c60c25ae08b7c51e102d6a852496ff7131453"
+			"ImportPath": "golang.org/x/sys/windows",
+			"Rev": "d75a52659825e75fff6158388dddc6a5b04f9ba5"
 		},
 		{
-			"ImportPath": "gopkg.in/pg.v5/internal",
-			"Comment": "v5.3.2",
-			"Rev": "f75c60c25ae08b7c51e102d6a852496ff7131453"
+			"ImportPath": "golang.org/x/sys/windows/registry",
+			"Rev": "d75a52659825e75fff6158388dddc6a5b04f9ba5"
 		},
 		{
-			"ImportPath": "gopkg.in/pg.v5/internal/parser",
-			"Comment": "v5.3.2",
-			"Rev": "f75c60c25ae08b7c51e102d6a852496ff7131453"
-		},
-		{
-			"ImportPath": "gopkg.in/pg.v5/internal/pool",
-			"Comment": "v5.3.2",
-			"Rev": "f75c60c25ae08b7c51e102d6a852496ff7131453"
-		},
-		{
-			"ImportPath": "gopkg.in/pg.v5/orm",
-			"Comment": "v5.3.2",
-			"Rev": "f75c60c25ae08b7c51e102d6a852496ff7131453"
-		},
-		{
-			"ImportPath": "gopkg.in/pg.v5/types",
-			"Comment": "v5.3.2",
-			"Rev": "f75c60c25ae08b7c51e102d6a852496ff7131453"
+			"ImportPath": "golang.org/x/sys/windows/svc/eventlog",
+			"Rev": "d75a52659825e75fff6158388dddc6a5b04f9ba5"
 		}
 	]
 }

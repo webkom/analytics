@@ -22,12 +22,12 @@ You need to set the LISTEN_ADDRESS and POSTGRES_URL variables to start the servi
 
 Start the apiserver
 ```
-./app
+./analytics
 ```
 
 Create the database table
 ```
-./app -migrate
+./analytics -migrate
 ```
 
 
@@ -44,5 +44,6 @@ Pull dependencies and run the program.
 
 ```
 godep get
-go run main.go
+go build
+./analytics
 ```
