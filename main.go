@@ -4,39 +4,37 @@ import (
 	"flag"
 	log "github.com/Sirupsen/logrus"
 	"github.com/getsentry/raven-go"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"net/http"
+	_ "github.com/lib/pq"
 	"os"
 )
 
-var addr = flag.String("listen-address", ":8000", "The address to listen on for HTTP requests.")
-
 func init() {
-	// Log as JSON instead of the default ASCII formatter.
+	raven.SetDSN(os.Getenv("SENTRY_DSN"))
+
 	log.SetFormatter(&log.JSONFormatter{})
-
-	// Output to stdout instead of the default stderr
-	// Can be any io.Writer, see below for File example
 	log.SetOutput(os.Stdout)
-
-	// Only log the warning severity or above.
-	log.SetLevel(log.WarnLevel)
+	log.SetLevel(log.InfoLevel)
 }
 
 func main() {
 
 	raven.CapturePanic(func() {
-
-		log.Warn("starting_server")
-
+		migrate := flag.Bool("migrate", false, "migrate database")
 		flag.Parse()
-		http.Handle("/metrics", promhttp.Handler())
 
-		err := http.ListenAndServe(*addr, nil)
+		listenAddress := os.Getenv("LISTEN_ADDRESS")
 
-		if err != nil {
-			log.Panic(err)
+		app := App{}
+		app.Initialize(
+			os.Getenv("POSTGRES_URL"),
+		)
+
+		if *migrate {
+			log.Info("migrating_database")
+			app.Migrate()
+		} else {
+			log.Info("starting_server")
+			app.Run(listenAddress)
 		}
-
 	}, nil)
 }
