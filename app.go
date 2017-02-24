@@ -64,6 +64,10 @@ func (a *App) Migrate() {
 	sent_at			TIMESTAMP NOT NULL,
 	timestamp		TIMESTAMP NOT NULL
 	);
+	CREATE INDEX IF NOT EXISTS identifies_context_gin_idx ON identifies
+	USING gin (context jsonb_ops);
+	CREATE INDEX IF NOT EXISTS identifies_traits_gin_idx ON identifies
+	USING gin (traits jsonb_ops);
 
 	CREATE TABLE IF NOT EXISTS pages
 	(
@@ -77,6 +81,10 @@ func (a *App) Migrate() {
 	sent_at			TIMESTAMP NOT NULL,
 	timestamp		TIMESTAMP NOT NULL
 	);
+	CREATE INDEX IF NOT EXISTS pages_context_gin_idx ON pages
+	USING gin (context jsonb_ops);
+	CREATE INDEX IF NOT EXISTS pages_properties_gin_idx ON pages
+	USING gin (properties jsonb_ops);
 
 	CREATE TABLE IF NOT EXISTS screens
 	(
@@ -91,6 +99,10 @@ func (a *App) Migrate() {
 	sent_at			TIMESTAMP NOT NULL,
 	timestamp		TIMESTAMP NOT NULL
 	);
+	CREATE INDEX IF NOT EXISTS screens_context_gin_idx ON screens
+	USING gin (context jsonb_ops);
+	CREATE INDEX IF NOT EXISTS screens_properties_gin_idx ON screens
+	USING gin (properties jsonb_ops);
 
 	CREATE TABLE IF NOT EXISTS tracks
 	(
@@ -104,6 +116,10 @@ func (a *App) Migrate() {
 	sent_at			TIMESTAMP NOT NULL,
 	timestamp		TIMESTAMP NOT NULL
 	);
+	CREATE INDEX IF NOT EXISTS tracks_context_gin_idx ON tracks
+	USING gin (context jsonb_ops);
+	CREATE INDEX IF NOT EXISTS tracks_properties_gin_idx ON tracks
+	USING gin (properties jsonb_ops);
 
 	CREATE TABLE IF NOT EXISTS "groups"
 	(
@@ -117,6 +133,10 @@ func (a *App) Migrate() {
 	sent_at			TIMESTAMP NOT NULL,
 	timestamp		TIMESTAMP NOT NULL
 	);
+	CREATE INDEX IF NOT EXISTS groups_context_gin_idx ON "groups"
+	USING gin (context jsonb_ops);
+	CREATE INDEX IF NOT EXISTS groups_traits_gin_idx ON "groups"
+	USING gin (traits jsonb_ops);
 	`
 	if _, err := a.DB.Exec(tableCreationQuery); err != nil {
 		log.Fatal(err)
