@@ -6,8 +6,11 @@ This service exposes a simple event bulk ingestion endpoint. We use this to trac
 and trends. The metrics gets stored in postgres, services like Redash is used to query the
 data. We support the following libraries for event ingestion:
 
-* analytics-python
+* [analytics-python](https://github.com/segmentio/analytics-python)
+* [analytics-node](https://github.com/segmentio/analytics-node)
+* [analytics-go](https://github.com/segmentio/analytics-go)
 
+Other Segment libraries that only uses the `/v1/batch` may work with this project.
 We don't perform any authentication checks, this service should only run on the local network.
 
 ## Configuration
@@ -33,6 +36,13 @@ Create the database table
 ./analytics -migrate
 ```
 
+## Tables
+
+* identifies - A table with all of your identify method calls
+* pages - A table with all of your page method calls
+* screens - A table with all of your screen method calls
+* tracks - A table with all of your track method calls
+* groups - A table with all og your group method calls
 
 ## Getting started
 

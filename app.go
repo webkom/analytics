@@ -53,17 +53,71 @@ func (a *App) InitializePrometheus() {
 
 func (a *App) Migrate() {
 	const tableCreationQuery = `
-	CREATE TABLE IF NOT EXISTS events
+	CREATE TABLE IF NOT EXISTS identifies
 	(
 	id			SERIAL NOT NULL PRIMARY KEY,
    	anonymous_id    	TEXT,
    	user_id			TEXT,
-   	type            	TEXT NOT NULL,
    	context			JSONB,
+   	traits			JSONB,
    	received_at		TIMESTAMP NOT NULL,
 	sent_at			TIMESTAMP NOT NULL,
 	timestamp		TIMESTAMP NOT NULL
-	);`
+	);
+
+	CREATE TABLE IF NOT EXISTS pages
+	(
+	id			SERIAL NOT NULL PRIMARY KEY,
+   	anonymous_id    	TEXT,
+   	user_id			TEXT,
+   	context			JSONB,
+   	name			TEXT,
+   	properties		JSONB,
+   	received_at		TIMESTAMP NOT NULL,
+	sent_at			TIMESTAMP NOT NULL,
+	timestamp		TIMESTAMP NOT NULL
+	);
+
+	CREATE TABLE IF NOT EXISTS screens
+	(
+	id			SERIAL NOT NULL PRIMARY KEY,
+   	anonymous_id    	TEXT,
+   	user_id			TEXT,
+   	context			JSONB,
+   	name			TEXT,
+   	category		TEXT,
+   	properties		JSONB,
+   	received_at		TIMESTAMP NOT NULL,
+	sent_at			TIMESTAMP NOT NULL,
+	timestamp		TIMESTAMP NOT NULL
+	);
+
+	CREATE TABLE IF NOT EXISTS tracks
+	(
+	id			SERIAL NOT NULL PRIMARY KEY,
+   	anonymous_id    	TEXT,
+   	user_id			TEXT,
+   	context			JSONB,
+   	properties		JSONB,
+   	event 			TEXT,
+   	received_at		TIMESTAMP NOT NULL,
+	sent_at			TIMESTAMP NOT NULL,
+	timestamp		TIMESTAMP NOT NULL
+	);
+
+	CREATE TABLE IF NOT EXISTS "groups"
+	(
+	id			SERIAL NOT NULL PRIMARY KEY,
+   	anonymous_id    	TEXT,
+   	user_id			TEXT,
+   	context			JSONB,
+   	traits			JSONB,
+   	group_id		TEXT,
+   	received_at		TIMESTAMP NOT NULL,
+	sent_at			TIMESTAMP NOT NULL,
+	timestamp		TIMESTAMP NOT NULL
+	);
+	`
 	if _, err := a.DB.Exec(tableCreationQuery); err != nil {
 		log.Fatal(err)
 	}

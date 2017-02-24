@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"encoding/json"
 	"github.com/prometheus/client_golang/prometheus"
-	"github.com/prometheus/common/log"
 	"net/http"
 	"time"
 )
@@ -31,7 +30,6 @@ func (h *BatchHandler) create(w http.ResponseWriter, r *http.Request) {
 	var batchEvents BatchEvents
 	decoder := json.NewDecoder(r.Body)
 	if err := decoder.Decode(&batchEvents); err != nil {
-		log.Warn(err)
 		respondWithError(w, http.StatusBadRequest, "Invalid request payload")
 		return
 	}

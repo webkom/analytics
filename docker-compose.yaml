@@ -9,10 +9,16 @@ services:
     environment:
       - POSTGRES_USER=analytics
 
+  postgres_redash:
+      image: postgres:9.5
+      environment:
+        - POSTGRES_USER=redash
+
   redash:
     image: redash/redash:latest
     depends_on:
       - postgres
+      - postgres_redash
       - redis
     ports:
       - "5000:5000"
@@ -20,7 +26,7 @@ services:
       PYTHONUNBUFFERED: 0
       REDASH_LOG_LEVEL: "INFO"
       REDASH_REDIS_URL: "redis://redis:6379/0"
-      REDASH_DATABASE_URL: "postgresql://analytics:analytics@postgres/analytics"
+      REDASH_DATABASE_URL: "postgresql://redash:redash@postgres_redash/redash"
       REDASH_COOKIE_SECRET: veryverysecret
   redis:
     image: redis:2.8
