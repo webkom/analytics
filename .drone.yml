@@ -2,7 +2,8 @@ pipeline:
   docker:
     image: plugins/docker
     when:
-      branch: master
-      event: push
+      event: tag
     repo: abakus/analytics
-    tag: latest
+    tag:
+      - ${DRONE_TAG##v}
+      - latest
