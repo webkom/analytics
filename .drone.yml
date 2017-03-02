@@ -1,9 +1,23 @@
+workspace:
+  base: /go
+  path: src/github.com/webkom/analytics
+
 pipeline:
+  tests:
+    image: golang:1.8
+    when:
+      event: push
+    commands:
+      - go get golang.org/x/sys/unix
+      - go get github.com/tools/godep
+      - godep get
+      - go build
+
   docker:
     image: plugins/docker
     when:
       event: tag
     repo: abakus/analytics
-    tag:
+    tags:
       - ${DRONE_TAG##v}
       - latest
