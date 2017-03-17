@@ -208,7 +208,7 @@ func (be *BatchEvents) createBatchEvents(db *sql.DB) error {
 		case "identify":
 			var identify Identify
 			config := &mapstructure.DecoderConfig{
-				DecodeHook: StringToTimeHookFunc(),
+				DecodeHook: NormalizeTypesHookFunc(),
 				Result:     &identify,
 			}
 			decoder, err := mapstructure.NewDecoder(config)
@@ -225,7 +225,7 @@ func (be *BatchEvents) createBatchEvents(db *sql.DB) error {
 		case "track":
 			var track Track
 			config := &mapstructure.DecoderConfig{
-				DecodeHook: StringToTimeHookFunc(),
+				DecodeHook: NormalizeTypesHookFunc(),
 				Result:     &track,
 			}
 			decoder, err := mapstructure.NewDecoder(config)
@@ -242,7 +242,7 @@ func (be *BatchEvents) createBatchEvents(db *sql.DB) error {
 		case "page":
 			var page Page
 			config := &mapstructure.DecoderConfig{
-				DecodeHook: StringToTimeHookFunc(),
+				DecodeHook: NormalizeTypesHookFunc(),
 				Result:     &page,
 			}
 			decoder, err := mapstructure.NewDecoder(config)
@@ -259,7 +259,7 @@ func (be *BatchEvents) createBatchEvents(db *sql.DB) error {
 		case "screen":
 			var screen Screen
 			config := &mapstructure.DecoderConfig{
-				DecodeHook: StringToTimeHookFunc(),
+				DecodeHook: NormalizeTypesHookFunc(),
 				Result:     &screen,
 			}
 			decoder, err := mapstructure.NewDecoder(config)
@@ -276,7 +276,7 @@ func (be *BatchEvents) createBatchEvents(db *sql.DB) error {
 		case "group":
 			var group Group
 			config := &mapstructure.DecoderConfig{
-				DecodeHook: StringToTimeHookFunc(),
+				DecodeHook: NormalizeTypesHookFunc(),
 				Result:     &group,
 			}
 			decoder, err := mapstructure.NewDecoder(config)
